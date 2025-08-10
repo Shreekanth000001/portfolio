@@ -4,25 +4,25 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const testimonials = [
   {
-    quote: "Working with them was an absolute pleasure. Their attention to detail and commitment to quality is unparalleled. The final product exceeded all our expectations.",
-    name: "Jane Doe",
+    quote: "Working with Shreekanth was an absolute pleasure. His attention to detail and commitment to quality is unparalleled. The final product exceeded all our expectations.",
+    name: "Kiran",
     title: "CEO, Innovate Inc.",
     avatar: "https://placehold.co/100x100.png",
     avatarHint: "person face",
   },
   {
-    quote: "A true professional who delivers exceptional results. Their technical skills and creative vision brought our project to life in ways we hadn't imagined.",
-    name: "John Smith",
+    quote: "A true professional who delivers exceptional results. His technical skills and creative vision brought our project to life in ways we hadn't imagined.",
+    name: "Dhanush",
     title: "CTO, Tech Solutions",
     avatar: "https://placehold.co/100x100.png",
     avatarHint: "person portrait"
   },
   {
-    quote: "I highly recommend them for any web development project. They are reliable, communicative, and incredibly talented. We couldn't be happier with the outcome.",
+    quote: "I highly recommend Shreekanth for any web development project. He is reliable, communicative, and incredibly talented. We couldn't be happier with the outcome.",
     name: "Emily White",
     title: "Marketing Director, Creative Co.",
     avatar: "https://placehold.co/100x100.png",
-    avatarHint: "professional woman"
+    avatarHint: "Bhuvan"
   },
 ];
 

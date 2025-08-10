@@ -12,8 +12,8 @@ export function About() {
             </p>
           </div>
           <div className="flex justify-center">
-            <Avatar className="w-48 h-48 md:w-64 md:h-64 border-4 border-primary shadow-lg">
-              <AvatarImage src="https://placehold.co/300x300.png" alt="Professional Headshot" data-ai-hint="professional headshot" />
+            <Avatar className="w-48 h-48 md:w-64 md:h-72 border-4 border-primary shadow-lg">
+              <AvatarImage src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCOZcQR66emCl_vRgURswd2Y1xWPhJwK1vb8IGaQKWPjD2BuUqI1rMrCFo_vk3YfHJcSxhM0CFUu-XKFfdn54YXDHHIQRCIbLb-QNdgxbpxRAAqhrgueZHB-9v9StU4ZuZB5yLQ5G9suueiW4pSuY2tqEDr2ZFmYQC5W_tesCDRqZL4aR91K6ftX7RhIE/s1600/myphoto1.jpg" alt="Professional Headshot" data-ai-hint="professional headshot" />
               <AvatarFallback>JD</AvatarFallback>
             </Avatar>
           </div>
