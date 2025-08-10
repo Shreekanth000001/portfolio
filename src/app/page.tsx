@@ -6,6 +6,7 @@ import { Contact } from "@/components/contact";
 import { AppFooter } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { AIGenerator } from "@/components/ai-generator";
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
         </section>
         <About />
         <Projects />
+        <AIGenerator />
         <Testimonials />
         <Contact />
       </main>

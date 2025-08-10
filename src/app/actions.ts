@@ -1,55 +1,50 @@
 'use server';
 
 import { z } from 'zod';
-import pool from '@/lib/db';
+import { getDb } from '@/lib/db';
 
-const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
-});
+export async function createContact(prevState: any, formData: FormData) { // Add prevState as the first parameter
+  const name = formData.get('name');
+  const email = formData.get('email');
+  const message = formData.get('message');
 
-export async function createContact(prevState: any, formData: FormData) {
-  const validatedFields = formSchema.safeParse({
-    name: formData.get('name'),
-    email: formData.get('email'),
-    message: formData.get('message'),
-  });
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Validation Error: Please check your input.',
-    };
+  // Basic validation (you might want to add more robust validation)
+  if (!name || !email || !message) {
+ return { message: 'Error: All fields are required.', errors: null };
   }
 
-  const { name, email, message } = validatedFields.data;
-
   try {
-    const connection = await pool.getConnection();
+    console.log('Attempting to get database connection pool...');
+    // Get a connection pool from the getDb function
+    const pool = await getDb();
+    console.log('Database connection pool obtained.');
 
     // Create table if it doesn't exist
-    await connection.query(`
+    // Modify the CREATE TABLE statement for PostgreSQL
+    console.log('Attempting to create contacts table if it does not exist...');
+    await pool.query(`
       CREATE TABLE IF NOT EXISTS contacts (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id SERIAL PRIMARY KEY, -- Use SERIAL for auto-incrementing primary key
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
         message TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP -- Use TIMESTAMP WITH TIME ZONE
       )
     `);
 
-    // Insert data
-    await connection.query(
-      'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
+    console.log('Contacts table checked/created.');
+    // Insert data into the contacts table
+    const result = await pool.query(
+      'INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3) RETURNING id',
       [name, email, message]
     );
 
-    connection.release();
+    console.log('Contact form submitted successfully:', result.rows[0]);
 
-    return { message: 'Success: Your message has been sent successfully.' };
+ return { message: 'Success: Message sent successfully!', errors: null };
+
   } catch (error) {
-    console.error(error);
-    return { message: 'Database Error: Failed to save message.' };
+    console.error('Database Error:', error);
+ return { message: 'Database Error: Failed to send message.', errors: null };
   }
 }

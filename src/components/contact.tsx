@@ -1,13 +1,13 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { createContact } from "@/app/actions";
@@ -21,7 +21,6 @@ const formSchema = z.object({
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-
   return (
     <Button type="submit" className="w-full" disabled={pending}>
       {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -30,10 +29,16 @@ function SubmitButton() {
   );
 }
 
+const initialState = {
+  message: null,
+  errors: null,
+};
+
+
 export function Contact() {
   const { toast } = useToast();
-  const [state, formAction] = useFormState(createContact, { message: null, errors: {} });
-
+  const formRef = useRef<HTMLFormElement>(null);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,22 +48,33 @@ export function Contact() {
     },
   });
 
+  const { formState, setError } = form;
+
+  const [state, formAction] = useFormState(createContact, initialState);
+
   useEffect(() => {
     if (state.message?.startsWith('Success:')) {
       toast({
-        title: "Message Sent!",
+        title: 'Message Sent!',
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
       form.reset();
-    } else if (state.message?.startsWith('Database Error:') || state.message?.startsWith('Validation Error:')) {
+    } else if (state.message?.startsWith('Error:') || state.message?.startsWith('Database Error:')) {
       toast({
-        variant: "destructive",
+        variant: 'destructive',
         title: "Submission Failed",
         description: state.message,
       });
+    } else if (state.errors) {
+      Object.entries(state.errors).forEach(([key, value]) => {
+        setError(key as keyof z.infer<typeof formSchema>, {
+          type: 'server',
+          message: value as string,
+        });
+      });
     }
-  }, [state, toast, form]);
-
+  }, [state, toast, form, setError]);
+  
   return (
     <section id="contact" className="w-full py-12 md:py-24 lg:py-32 border-t">
       <div className="container px-4 md:px-6">
@@ -71,7 +87,7 @@ export function Contact() {
           </div>
           <div className="w-full max-w-md p-6 rounded-lg shadow-lg bg-secondary/50">
             <Form {...form}>
-              <form action={formAction} className="space-y-4">
+              <form ref={formRef} action={formAction} className="space-y-4">
                 <FormField
                   control={form.control}
                   name="name"
