@@ -1,23 +1,14 @@
 "use client";
 
-import { useForm, useFormState } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useEffect, useRef } from "react";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { createContact } from "@/app/actions";
 import { Loader2 } from "lucide-react";
-
-const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
-});
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -38,18 +29,6 @@ const initialState = {
 export function Contact() {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
-  
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
-  });
-
-  const { formState, setError } = form;
-
   const [state, formAction] = useFormState(createContact, initialState);
 
   useEffect(() => {
@@ -58,22 +37,15 @@ export function Contact() {
         title: 'Message Sent!',
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
-      form.reset();
+      formRef.current?.reset();
     } else if (state.message?.startsWith('Error:') || state.message?.startsWith('Database Error:')) {
       toast({
         variant: 'destructive',
         title: "Submission Failed",
         description: state.message,
       });
-    } else if (state.errors) {
-      Object.entries(state.errors).forEach(([key, value]) => {
-        setError(key as keyof z.infer<typeof formSchema>, {
-          type: 'server',
-          message: value as string,
-        });
-      });
     }
-  }, [state, toast, form, setError]);
+  }, [state, toast]);
   
   return (
     <section id="contact" className="w-full py-12 md:py-24 lg:py-32 border-t">
@@ -86,50 +58,21 @@ export function Contact() {
             </p>
           </div>
           <div className="w-full max-w-md p-6 rounded-lg shadow-lg bg-secondary/50">
-            <Form {...form}>
               <form ref={formRef} action={formAction} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your Name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Message</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Tell me about your project or inquiry..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input id="name" name="name" placeholder="Your Name" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" name="email" type="email" placeholder="your.email@example.com" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea id="message" name="message" placeholder="Tell me about your project or inquiry..." />
+                </div>
                 <SubmitButton />
               </form>
-            </Form>
           </div>
         </div>
       </div>
