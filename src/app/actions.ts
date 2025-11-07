@@ -59,7 +59,7 @@ export async function generateDescriptionAction(keywords: string): Promise<Gener
   const prompt = `You are a professional copywriter specializing in creating engaging project descriptions for portfolios. Based on the following keywords, generate a compelling and detailed project description. Keywords: ${keywords}`;
 
   const { text } = await ai.generate({
-    model: 'googleai/gemini-1.0-pro',
+    model: 'googleai/gemini-1.5-flash-latest',
     prompt: prompt,
   });
 
