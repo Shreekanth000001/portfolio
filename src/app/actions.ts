@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 import { getDb } from '@/lib/db';
+import { ai } from '@/ai/genkit';
+import { GenerateProjectDescriptionOutput } from '@/ai/flows/generate-project-description';
 
 export async function createContact(prevState: any, formData: FormData) { // Add prevState as the first parameter
   const name = formData.get('name');
@@ -47,4 +49,15 @@ export async function createContact(prevState: any, formData: FormData) { // Add
     console.error('Database Error:', error);
  return { message: 'Database Error: Failed to send message.', errors: null };
   }
+}
+
+export async function generateDescriptionAction(keywords: string): Promise<GenerateProjectDescriptionOutput> {
+  const prompt = `You are a professional copywriter specializing in creating engaging project descriptions for portfolios. Based on the following keywords, generate a compelling and detailed project description. Keywords: ${keywords}`;
+
+  const { text } = await ai.generate({
+    model: 'googleai/gemini-pro',
+    prompt: prompt,
+  });
+
+  return { description: text };
 }

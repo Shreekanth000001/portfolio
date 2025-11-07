@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { generateProjectDescription, GenerateProjectDescriptionOutput } from "@/ai/flows/generate-project-description";
+import { generateDescriptionAction } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -18,8 +18,12 @@ const formSchema = z.object({
   }),
 });
 
+interface GenerationOutput {
+    description: string;
+}
+
 export function AIGenerator() {
-  const [generatedDescription, setGeneratedDescription] = useState<GenerateProjectDescriptionOutput | null>(null);
+  const [generatedDescription, setGeneratedDescription] = useState<GenerationOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -34,7 +38,7 @@ export function AIGenerator() {
     setIsLoading(true);
     setGeneratedDescription(null);
     try {
-      const result = await generateProjectDescription({ keywords: values.keywords });
+      const result = await generateDescriptionAction(values.keywords);
       setGeneratedDescription(result);
     } catch (error) {
       console.error("Failed to generate description:", error);
