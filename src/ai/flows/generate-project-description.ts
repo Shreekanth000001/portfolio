@@ -31,6 +31,7 @@ export async function generateProjectDescription(
 
 const generateProjectDescriptionPrompt = ai.definePrompt({
   name: 'generateProjectDescriptionPrompt',
+  model: 'googleai/gemini-pro',
   input: {schema: GenerateProjectDescriptionInputSchema},
   output: {schema: GenerateProjectDescriptionOutputSchema},
   prompt: `You are a professional copywriter specializing in creating engaging project descriptions for portfolios.
