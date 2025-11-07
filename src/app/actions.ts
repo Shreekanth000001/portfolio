@@ -3,7 +3,11 @@
 import { z } from 'zod';
 import { getDb } from '@/lib/db';
 import { ai } from '@/ai/genkit';
-import { GenerateProjectDescriptionOutput } from '@/ai/flows/generate-project-description';
+
+// This type is no longer needed as the flow is removed, but we can define a simple interface.
+export interface GenerateProjectDescriptionOutput {
+  description: string;
+}
 
 export async function createContact(prevState: any, formData: FormData) { // Add prevState as the first parameter
   const name = formData.get('name');
@@ -55,7 +59,7 @@ export async function generateDescriptionAction(keywords: string): Promise<Gener
   const prompt = `You are a professional copywriter specializing in creating engaging project descriptions for portfolios. Based on the following keywords, generate a compelling and detailed project description. Keywords: ${keywords}`;
 
   const { text } = await ai.generate({
-    model: 'googleai/gemini-pro',
+    model: 'googleai/gemini-1.0-pro',
     prompt: prompt,
   });
 
