@@ -56,10 +56,10 @@ export async function createContact(prevState: any, formData: FormData) { // Add
 }
 
 export async function generateDescriptionAction(keywords: string): Promise<GenerateProjectDescriptionOutput> {
-  const prompt = `You are a professional copywriter specializing in creating engaging project descriptions for portfolios. Based on the following keywords, generate a compelling and detailed project description. Keywords: ${keywords}`;
+  const prompt = `You are a professional copywriter specializing in creating engaging project descriptions for portfolios. Based on the following keywords, generate a compelling and detailed project description. Keywords: ${keywords}, and the description should be less than 100 words`;
 
   const { text } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash-latest',
+    model: 'googleai/gemini-2.5-flash-preview-09-2025',
     prompt: prompt,
   });
 
