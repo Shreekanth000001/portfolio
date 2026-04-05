@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Wand2, Copy, Loader2 } from "lucide-react";
+import { Sparkles, Copy, Loader2, Bot } from "lucide-react";
 
 const formSchema = z.object({
   keywords: z.string().min(10, {
@@ -56,81 +56,98 @@ export function AIGenerator() {
     if (generatedDescription?.description) {
       navigator.clipboard.writeText(generatedDescription.description);
       toast({
-        title: "Copied!",
-        description: "Project description copied to clipboard.",
+        title: "Copied to Clipboard!",
+        description: "You can now paste this description into your documents.",
       });
     }
   };
 
   return (
-    <section id="ai-generator" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
-      <div className="container px-4 md:px-6">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl flex items-center gap-3">
-              <Wand2 className="w-8 h-8 text-primary" />
-              AI Content Assistant
+    <section id="ai-generator" className="w-full flex flex-col justify-center items-center py-24 md:py-32 bg-secondary/10 border-y border-border/50 relative">
+      <div className="container px-4 md:px-6 relative z-10">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+          <div className="space-y-6">
+            <div className="inline-flex items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-500 backdrop-blur-sm">
+              <Sparkles className="mr-2 h-4 w-4" />
+              Experimental Feature
+            </div>
+            <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">
+              AI Content <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-primary">Assistant</span>
             </h2>
-            <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Struggling to find the right words? Enter keywords about your project, experiences, and accomplishments, and let our AI generate a compelling description for you.
+            <p className="max-w-[600px] text-muted-foreground md:text-xl leading-relaxed">
+              Writing project documentation can be tedious. Feed my AI assistant a few raw keywords about your tech stack and achievements, and it will generate a professional project summary instantly.
             </p>
+            
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 bg-background/50 p-6 rounded-2xl border border-border/50 backdrop-blur-sm">
                 <FormField
                   control={form.control}
                   name="keywords"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Keywords</FormLabel>
+                      <FormLabel className="font-semibold">Raw Context & Keywords</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="e.g., 'Built a full-stack e-commerce app with Next.js, Stripe, and Vercel. Increased conversion by 15%.'"
-                          className="resize-none"
+                          placeholder="e.g., 'Built e-commerce backend. MongoDB, Express, Node. Handled 10k daily requests. Secured with JWT.'"
+                          className="resize-none bg-background/50 focus-visible:ring-purple-500/30 min-h-[120px]"
                           {...field}
-                          rows={4}
                         />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
+                <Button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-primary hover:from-purple-700 hover:to-primary/90 text-white border-0 shadow-lg shadow-purple-500/25">
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Generating...
+                      Processing Request...
                     </>
                   ) : (
                     <>
-                      <Wand2 className="mr-2 h-4 w-4" />
-                      Generate Description
+                      <Bot className="mr-2 h-4 w-4" />
+                      Generate Output
                     </>
                   )}
                 </Button>
               </form>
             </Form>
           </div>
-          <div className="flex items-center justify-center">
-            <Card className="w-full max-w-md h-full min-h-[300px] flex flex-col shadow-lg">
-              <CardHeader>
-                <CardTitle>Generated Description</CardTitle>
-                <CardDescription>Your AI-powered project description will appear here.</CardDescription>
+
+          <div className="flex items-center justify-center relative">
+            {/* Glow effect behind card */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-primary/10 blur-3xl -z-10 rounded-full" />
+            
+            <Card className="w-full max-w-lg h-full min-h-[400px] flex flex-col shadow-2xl bg-background/80 backdrop-blur-xl border-border/50 overflow-hidden">
+              <div className="h-1 w-full bg-gradient-to-r from-purple-500 to-primary" />
+              <CardHeader className="bg-secondary/20 border-b border-border/50 pb-4">
+                <CardTitle className="flex items-center text-lg">
+                  <Sparkles className="h-5 w-5 mr-2 text-purple-500" /> Output Terminal
+                </CardTitle>
+                <CardDescription>AI-generated professional summary</CardDescription>
               </CardHeader>
-              <CardContent className="flex-grow p-6">
+              <CardContent className="flex-grow p-6 relative">
                 {isLoading && (
-                  <div className="flex items-center justify-center h-full">
-                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/50 backdrop-blur-sm z-10">
+                    <Loader2 className="w-10 h-10 animate-spin text-purple-500 mb-4" />
+                    <span className="text-sm text-muted-foreground font-medium animate-pulse">Synthesizing data...</span>
                   </div>
                 )}
-                {generatedDescription && (
-                  <p className="text-sm text-foreground">{generatedDescription.description}</p>
+                {generatedDescription ? (
+                  <div className="prose prose-sm dark:prose-invert">
+                    <p className="text-foreground leading-relaxed text-base">{generatedDescription.description}</p>
+                  </div>
+                ) : (
+                  <div className="h-full flex items-center justify-center text-muted-foreground/50 text-sm font-mono text-center border-2 border-dashed border-border/50 rounded-xl p-6">
+                    Awaiting input parameters to generate content...
+                  </div>
                 )}
               </CardContent>
               {generatedDescription && (
-                <CardFooter>
-                  <Button variant="outline" onClick={handleCopy} className="ml-auto">
+                <CardFooter className="bg-secondary/20 border-t border-border/50 pt-4">
+                  <Button variant="secondary" onClick={handleCopy} className="ml-auto rounded-full hover:bg-purple-500 hover:text-white transition-colors">
                     <Copy className="mr-2 h-4 w-4" />
-                    Copy
+                    Copy to Clipboard
                   </Button>
                 </CardFooter>
               )}
