@@ -18,6 +18,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  
+  // Moved this OUTSIDE of experimental
+  serverExternalPackages: [
+    "@genkit-ai/firebase", 
+    "@opentelemetry/exporter-jaeger",
+    "@opentelemetry/sdk-node"
+  ],
+
   experimental: {
     serverActions: {
       bodySizeLimit: '2mb',
