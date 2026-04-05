@@ -10,7 +10,7 @@ const projects = [
     description: "A comprehensive platform dedicated to bridging the gap in the agricultural sector, providing streamlined connectivity and modern technological resources for users.",
     image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAoEmasOPnw03PWtIlNXZXznbybnOyCUbGWLKH2da_qIoQYrLkV9cEtXyFWJStRhW5oWd-0MXU_4TXOc3N62bf-8Ts-b7hfbK7TEYWWAYATJdR5J9pCzcFnKjfNoxFE09JEyo1nN3vcer1v5Kp2Us-X-hIhj6XuvvNJqyMjVmYC3TMLheKRh3Bulu6bl0/s1600/Screenshot%20from%202026-03-29%2009-56-38.png", // Add your Agri-Connect screenshot URL here
     imageHint: "agriculture technology platform interface",
-    link: "#", 
+    link: "https://agri-connect-it.vercel.app/", 
     docsLink: "#" 
   },
   {
