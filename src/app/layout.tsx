@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: 'Shreekanth.dev | Full Stack Developer',
+  title: 'Shreekanth K',
   description: 'Professional portfolio showcasing web development, software engineering, and full-stack projects.',
   icons:{
     icon:'/logo.png'
