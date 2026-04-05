@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from '@/imgs/logo.png'
 import { ThemeToggle } from "./theme-toggle";
 
 export function AppHeader() {
@@ -10,7 +9,7 @@ export function AppHeader() {
         {/* Logo Image Container */}
         <div className="relative w-10 h-10 overflow-hidden rounded-md  ">
           <Image 
-            src={logo}
+            src="/logo.png"
             alt="SK Logo"
             fill
             sizes="40px"

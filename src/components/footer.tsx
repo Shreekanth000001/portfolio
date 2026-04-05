@@ -2,14 +2,22 @@ import { Github, Linkedin, Twitter, Code2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import logo from '@/imgs/logo.png'
 
 export function AppFooter() {
   return (
     <footer className="w-full bg-background border-t border-border/50 py-8">
       <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2 text-muted-foreground">
-          <Image src={logo}  alt=" NO logo found" className="w-10 h-10 rounded-full"/>
+          <div className="relative w-10 h-10 overflow-hidden rounded-md  ">
+                    <Image 
+                      src="/logo.png"
+                      alt="SK Logo"
+                      fill
+                      sizes="40px"
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
           <span className="text-sm font-medium">
             Engineered by <span className="text-foreground font-semibold">Shreekanth K</span> &copy; {new Date().getFullYear()}
           </span>

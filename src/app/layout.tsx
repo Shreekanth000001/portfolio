@@ -6,6 +6,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
   title: 'Shreekanth.dev | Full Stack Developer',
   description: 'Professional portfolio showcasing web development, software engineering, and full-stack projects.',
+  icons:{
+    icon:'/logo.png'
+  }
 };
 
 export default function RootLayout({

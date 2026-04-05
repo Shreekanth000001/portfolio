@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Code, Server, Database, LayoutTemplate } from "lucide-react";
 import Image from 'next/image'
-import propic from '@/imgs/propic.jpg';
 
 export function About() {
   return (
@@ -38,7 +37,7 @@ export function About() {
             {/* Image Container with fixed dimensions and responsive sizing */}
             <div className="w-48 h-48 md:w-72 md:h-72 rounded-full border-4 border-background shadow-2xl bg-muted flex items-center justify-center relative z-10 overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-500">
               <Image
-                src={propic}
+                src='/propic.jpg'
                 alt="Shreekanth K - Professional Headshot"
                 width={250}
                 height={250}
