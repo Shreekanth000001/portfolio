@@ -58,7 +58,7 @@ export function About() {
                   <LayoutTemplate size={20} />
                 </div>
                 <h4 className="font-semibold text-lg">Frontend</h4>
-                <p className="text-sm text-muted-foreground">React.js, Next.js, Tailwind CSS</p>
+                <p className="text-sm text-muted-foreground">React.js, TypeScript, Next.js, Tailwind CSS</p>
               </div>
 
               <div className="space-y-3 flex flex-col items-center sm:items-start text-center sm:text-left">
@@ -74,7 +74,7 @@ export function About() {
                   <Database size={20} />
                 </div>
                 <h4 className="font-semibold text-lg">Database</h4>
-                <p className="text-sm text-muted-foreground">MongoDB, MySQL</p>
+                <p className="text-sm text-muted-foreground">MongoDB, MySQL, PostgreSQL</p>
               </div>
 
               <div className="space-y-3 flex flex-col items-center sm:items-start text-center sm:text-left">
