@@ -1,11 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Lightbulb, Code2, Database, Rocket } from "lucide-react";
+import { Lightbulb, Code2, ServerCog, Rocket } from "lucide-react";
 
 const processes = [
   {
     id: "01",
-    title: "Architecture & Planning",
-    description: "Before writing a single line of code, I map out the database schema, define API endpoints, and wireframe the user interface to ensure a scalable foundation.",
+    title: "Systems Architecture",
+    description: "Before writing code, I design decoupled microservices, map relational database schemas, and define strict API contracts to ensure a scalable foundation.",
     icon: Lightbulb,
     color: "text-amber-500",
     bg: "bg-amber-500/10",
@@ -13,23 +13,23 @@ const processes = [
   {
     id: "02",
     title: "Frontend Engineering",
-    description: "Using React and Next.js, I build responsive, accessible, and highly interactive user interfaces focused on smooth animations and seamless user experiences.",
+    description: "Using Next.js and React Server Components, I build highly responsive, edge-cached user interfaces with a focus on streaming, Suspense, and optimistic UI mutations.",
     icon: Code2,
     color: "text-blue-500",
     bg: "bg-blue-500/10",
   },
   {
     id: "03",
-    title: "Backend Integration",
-    description: "I develop robust server-side logic using Node.js or Laravel, integrating secure authentication, efficient database queries (MongoDB/MySQL), and RESTful APIs.",
-    icon: Database,
+    title: "Backend & AI Compute",
+    description: "I develop robust compute layers using FastAPI and Node.js. My focus is on asynchronous job queues (Redis), vector databases (pgvector), and event-driven webhooks.",
+    icon: ServerCog,
     color: "text-emerald-500",
     bg: "bg-emerald-500/10",
   },
   {
     id: "04",
-    title: "Deployment & Optimization",
-    description: "Finally, I deploy the application using modern hosting platforms, optimize load times, monitor performance, and ensure cross-browser compatibility.",
+    title: "DevOps & Deployment",
+    description: "I manage bare-metal Linux servers (Azure), configuring Nginx reverse proxies, automated CI/CD pipelines via GitHub Actions, and managing SaaS FinOps integrations.",
     icon: Rocket,
     color: "text-purple-500",
     bg: "bg-purple-500/10",
@@ -51,7 +51,7 @@ export function Process() {
           </div>
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">My Engineering Process</h2>
           <p className="max-w-[700px] text-muted-foreground md:text-xl leading-relaxed">
-            A systematic approach to transforming complex problems into elegant, functional digital solutions.
+            A systems-driven approach to transforming complex infrastructure problems into elegant, highly-available SaaS solutions.
           </p>
         </div>
 
