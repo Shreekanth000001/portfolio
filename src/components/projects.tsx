@@ -10,7 +10,7 @@ const projects = [
     description: "An AI-powered SaaS platform that ingests PDF syllabi, generates vector embeddings, and uses a conversational RAG pipeline to generate structured study schedules. Monetized via Stripe webhooks.",
     image: "/imgs/acaPlan.png",
     imageHint: "AI SaaS Dashboard Interface",
-    link: "https://academic-planner-pdf.vercel.app",
+    link: "https://planner.shreek.me",
     docsLink: "https://github.com/Shreekanth000001/Academic-Planner" 
   },
   {
@@ -18,7 +18,7 @@ const projects = [
     description: "A comprehensive real-time bidding marketplace bridging the gap in the agricultural sector. Features complex relational data models and geospatial mapping for farmers and buyers.",
     image: "/imgs/Agri.png", 
     imageHint: "agriculture technology platform interface",
-    link: "https://agri-connect-it.vercel.app/", 
+    link: "https://agriconnect.shreek.me", 
     docsLink: "https://github.com/Shreekanth000001/agri-connect" 
   },
   {
@@ -26,7 +26,7 @@ const projects = [
     description: "A real-time social platform and community for gamers. Engineered with WebSocket infrastructure for instant networking, messaging, and game discovery.",
     image: "/imgs/nexus.png",
     imageHint: "web application interface",
-    link: "https://nexusgames.great-site.net/",
+    link: "https://nexusgames.shreek.me/",
     docsLink: "https://github.com/Shreekanth000001/nexusgames" 
   }
 ];
