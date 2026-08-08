@@ -1,86 +1,132 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Terminal, Server, Database, CloudCog } from "lucide-react";
-import Image from 'next/image'
+import { Terminal, Server, Database, CloudCog, GraduationCap, Cpu, ShieldCheck, Code2 } from "lucide-react";
 
 export function About() {
   return (
-    <section id="about" className="w-full flex flex-col justify-center items-center py-20 md:py-32 bg-secondary/30 border-y border-border/50">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Beyond the Code</h2>
-          <div className="h-1 w-20 bg-primary rounded-full" />
+    <section id="about" className="w-full flex flex-col justify-center items-center py-20 md:py-32 bg-secondary/20 border-y border-border/60">
+      <div className="container px-4 md:px-6 mx-auto">
+        
+        {/* Section Header */}
+        <div className="flex flex-col items-center justify-center space-y-3 text-center mb-16">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-mono font-semibold text-primary">
+            <Code2 className="w-3.5 h-3.5" /> About Me
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Beyond the Code</h2>
+          <p className="max-w-2xl text-muted-foreground text-sm sm:text-base">
+            Pursuing BCA with a focus on full-stack web applications and backend performance.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-6xl mx-auto">
+          
           {/* Main Bio Card */}
-          <Card className="md:col-span-2 bg-background/50 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-colors">
-            <CardContent className="p-8 h-full flex flex-col justify-center space-y-6">
-              <h3 className="text-2xl font-bold">The Developer Journey</h3>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Currently pursuing my BCA (Expected 2027), I operate as a Full-Stack Product Engineer bridging the gap between theoretical computer science and production-grade architecture. My focus is on building decoupled systems, orchestrating AI/RAG pipelines, and deploying bare-metal cloud infrastructure.
+          <Card className="lg:col-span-8 bg-card/70 backdrop-blur-md border-border/70 hover:border-primary/40 transition-colors shadow-sm rounded-3xl">
+            <CardContent className="p-6 md:p-8 flex flex-col justify-center space-y-5">
+              <div className="flex items-center space-x-3">
+                <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                  <GraduationCap className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">The Developer Journey</h3>
+                  <p className="text-xs font-mono text-muted-foreground">BCA Degree (Expected 2027) • Full Stack Developer</p>
+                </div>
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
+                Currently pursuing my BCA (Expected 2027), I work across the full stack—building frontends with Next.js, backends with FastAPI and Node.js, and integrating AI pipelines with pgvector.
               </p>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Off the screen, I maintain a sharp, analytical mindset through a passion for chess, always thinking three moves ahead—a philosophy I carry directly into designing highly scalable, fault-tolerant software architectures.
+              
+              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
+                Off the screen, I maintain a sharp, analytical mindset through a passion for chess—always thinking three moves ahead when designing scalable, fault-tolerant software architectures.
               </p>
             </CardContent>
           </Card>
 
-          {/* Photo/Avatar Card */}
-          <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 flex flex-col items-center justify-center p-4 overflow-hidden relative group">
-            <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-500" />
-            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors duration-500" />
-            <div className="absolute -top-8 -left-8 w-32 h-32 bg-accent/20 rounded-full blur-3xl group-hover:bg-accent/30 transition-colors duration-500" />
+          {/* Quick System Specs Card */}
+          <Card className="lg:col-span-4 bg-gradient-to-br from-card to-secondary/50 border-border/70 p-6 flex flex-col justify-between shadow-sm rounded-3xl">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-border/60">
+                <span className="text-xs font-mono font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4" /> Quick Specs
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                  VERIFIED
+                </span>
+              </div>
 
-            <div className="w-48 h-48 md:w-72 md:h-72 rounded-full border-4 border-background shadow-2xl bg-muted flex items-center justify-center relative z-10 overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-500">
-              <Image
-                src='/propic.jpg'
-                alt="Shreekanth K - Professional Headshot"
-                width={250}
-                height={250}
-                className="w-full h-full object-cover object-[40%_40%] transition-transform duration-700 group-hover:scale-110"
-                priority
-              />
+              <div className="space-y-3 font-mono text-xs">
+                <div>
+                  <span className="text-muted-foreground block">Degree Target:</span>
+                  <span className="font-semibold text-foreground">Bachelor of Computer Applications (2027)</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground block">Location:</span>
+                  <span className="font-semibold text-foreground">Bangalore, India (Open to Remote)</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground block">Core Focus:</span>
+                  <span className="font-semibold text-foreground">Next.js, RAG AI, WebSockets & SQL</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground block">Server Hosting:</span>
+                  <span className="font-semibold text-foreground">Azure Linux VMs & Nginx</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-border/60 mt-4">
+              <p className="text-[11px] text-muted-foreground italic">
+                "Code is read far more often than it is written. Build for clarity, architect for performance."
+              </p>
             </div>
           </Card>
 
-          {/* Skills / Tech Stack Bento Box */}
-          <Card className="md:col-span-3 bg-background/50 backdrop-blur-sm border-border/50 p-6 md:p-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          {/* Bento Grid Skills Architecture (4 Pillars) */}
+          <Card className="lg:col-span-12 bg-card/70 backdrop-blur-md border-border/70 p-6 md:p-8 shadow-sm rounded-3xl">
+            <div className="mb-6 flex items-center justify-between">
+              <h4 className="text-lg font-bold flex items-center gap-2">
+                <Cpu className="w-5 h-5 text-primary" /> Technical Stack & Skills
+              </h4>
+              <span className="text-xs font-mono text-muted-foreground hidden sm:inline">Production Tech 2026</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               
-              <div className="space-y-3 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 md:mb-4">
-                  <Terminal size={20} />
+              <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
+                <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2">
+                  <Terminal size={18} />
                 </div>
-                <h4 className="font-semibold text-lg">Frontend</h4>
-                <p className="text-sm text-muted-foreground">Next.js (App Router), React, TypeScript, Tailwind CSS</p>
+                <h5 className="font-bold text-sm">Frontend Engine</h5>
+                <p className="text-xs text-muted-foreground leading-relaxed">Next.js (App Router), React Server Components, TypeScript, Tailwind CSS</p>
               </div>
 
-              <div className="space-y-3 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 md:mb-4">
-                  <Server size={20} />
+              <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
+                <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 mb-2">
+                  <Server size={18} />
                 </div>
-                <h4 className="font-semibold text-lg">Backend & Queues</h4>
-                <p className="text-sm text-muted-foreground">FastAPI, Python, Node.js, Redis, ARQ, WebSockets</p>
+                <h5 className="font-bold text-sm">Backend & Queues</h5>
+                <p className="text-xs text-muted-foreground leading-relaxed">FastAPI, Python, Node.js, Redis, ARQ Worker Queues, WebSockets</p>
               </div>
 
-              <div className="space-y-3 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 md:mb-4">
-                  <Database size={20} />
+              <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
+                <div className="h-9 w-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-2">
+                  <Database size={18} />
                 </div>
-                <h4 className="font-semibold text-lg">Databases & AI</h4>
-                <p className="text-sm text-muted-foreground">PostgreSQL, pgvector, SQLAlchemy, OpenAI RAG Pipelines</p>
+                <h5 className="font-bold text-sm">Databases & AI</h5>
+                <p className="text-xs text-muted-foreground leading-relaxed">PostgreSQL, pgvector Embeddings, SQLAlchemy, Genkit / OpenAI RAG</p>
               </div>
 
-              <div className="space-y-3 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 md:mb-4">
-                  <CloudCog size={20} />
+              <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
+                <div className="h-9 w-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 mb-2">
+                  <CloudCog size={18} />
                 </div>
-                <h4 className="font-semibold text-lg">Cloud & DevOps</h4>
-                <p className="text-sm text-muted-foreground">Azure (Linux VMs), CI/CD, Nginx, Stripe/Clerk Integrations</p>
+                <h5 className="font-bold text-sm">Cloud & DevOps</h5>
+                <p className="text-xs text-muted-foreground leading-relaxed">Azure (Linux VMs), Nginx, GitHub Actions CI/CD, Stripe Webhooks</p>
               </div>
 
             </div>
           </Card>
+
         </div>
       </div>
     </section>

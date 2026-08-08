@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useActionState } from "react";
+import { useEffect, useRef, useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "../components/ui/input";
@@ -8,23 +8,27 @@ import { Textarea } from "../components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { createContact } from "@/app/actions";
-import { Loader2, Mail, MapPin, Send } from "lucide-react";
+import { Loader2, Mail, MapPin, Send, Check, Copy } from "lucide-react";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" className="w-full h-12 rounded-full text-base font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300" disabled={pending}>
+    <Button 
+      type="submit" 
+      disabled={pending}
+      className="w-full h-11 rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-primary/20 transition-all"
+    >
       {pending ? (
-        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
-        <Send className="mr-2 h-4 w-4" />
+        <Send className="mr-2 h-3.5 w-3.5" />
       )}
-      {pending ? "Sending..." : "Send Message"}
+      {pending ? "Transmitting Message..." : "Initiate Conversation"}
     </Button>
   );
 }
 
-const initialState = {
+const initialState: { message: string | null; errors: any } = {
   message: null,
   errors: null,
 };
@@ -33,12 +37,13 @@ export function Contact() {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction] = useActionState(createContact, initialState);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
   useEffect(() => {
     if (state.message?.startsWith('Success:')) {
       toast({
         title: 'Message Sent Successfully!',
-        description: "Thank you for reaching out. I'll get back to you shortly.",
+        description: "Thank you for reaching out. I'll respond promptly.",
       });
       formRef.current?.reset();
     } else if (state.message?.startsWith('Error:') || state.message?.startsWith('Database Error:')) {
@@ -49,61 +54,83 @@ export function Contact() {
       });
     }
   }, [state, toast]);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("shreekanth.k000001@gmail.com");
+    setCopiedEmail(true);
+    toast({
+      title: "Email Copied!",
+      description: "shreekanth.k000001@gmail.com copied to clipboard.",
+    });
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
   
   return (
     <section id="contact" className="w-full flex flex-col justify-center items-center py-24 md:py-32 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] -z-10 pointer-events-none" />
-      
-      <div className="container px-4 md:px-6">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="grid gap-12 lg:grid-cols-12 items-start">
           
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-sm font-medium text-primary">
-                Let's Connect
+          {/* Left Column: Direct Info */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-mono font-semibold text-primary">
+                Get In Touch
               </div>
-              <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">Ready to build something together?</h2>
-              <p className="max-w-[600px] text-muted-foreground md:text-xl leading-relaxed">
-                Whether you have a web development internship opportunity, a freelance project, or just want to talk code, I'm always open to discussing new ideas.
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-sans">
+                High-Ambition Collaborations & Roles
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                Whether you're looking for a Full-Stack Product Engineer for an internship, high-leverage SaaS development, or systems architecture, let's connect.
               </p>
             </div>
 
-            <div className="space-y-6 pt-4">
-              <div className="flex items-center space-x-4 text-muted-foreground">
-                <div className="bg-primary/10 p-3 rounded-full text-primary">
-                  <MapPin className="h-6 w-6" />
+            <div className="space-y-4 pt-2">
+              <div className="flex items-center space-x-3 text-muted-foreground bg-card/60 p-4 rounded-xl border border-border/60">
+                <div className="bg-primary/10 p-2.5 rounded-lg text-primary shrink-0">
+                  <MapPin className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground">Location</h4>
-                  <p>Bangalore, India (Open to Remote)</p>
+                  <h4 className="font-semibold text-xs text-foreground uppercase tracking-wider">Location & Mode</h4>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Bangalore, India (Available Remote Worldwide)</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-4 text-muted-foreground">
-                <div className="bg-primary/10 p-3 rounded-full text-primary">
-                  <Mail className="h-6 w-6" />
+
+              <div className="flex items-center justify-between bg-card/60 p-4 rounded-xl border border-border/60">
+                <div className="flex items-center space-x-3 text-muted-foreground overflow-hidden">
+                  <div className="bg-primary/10 p-2.5 rounded-lg text-primary shrink-0">
+                    <Mail className="h-5 w-5" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <h4 className="font-semibold text-xs text-foreground uppercase tracking-wider">Direct Email</h4>
+                    <p className="text-xs sm:text-sm text-foreground font-mono truncate">shreekanth.k000001@gmail.com</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Email</h4>
-                  <p>shreekanth.k000001@gmail.com</p>
-                </div>
+                <Button 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={copyEmail}
+                  className="rounded-lg text-xs font-mono text-muted-foreground hover:text-primary shrink-0 ml-2"
+                >
+                  {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </Button>
               </div>
             </div>
           </div>
 
-          <div className="w-full bg-background/60 backdrop-blur-md border border-border/50 p-8 md:p-10 rounded-3xl shadow-xl relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl -z-10" />
-            <form ref={formRef} action={formAction} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-medium">Full Name</Label>
-                <Input id="name" name="name" placeholder="Shree" className="h-12 bg-background/50 focus-visible:ring-primary/30" />
+          {/* Right Column: Contact Form */}
+          <div className="lg:col-span-7 bg-card/80 backdrop-blur-md border border-border/70 p-6 md:p-8 rounded-2xl shadow-lg relative">
+            <form ref={formRef} action={formAction} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Your Name / Organization</Label>
+                <Input id="name" name="name" placeholder="Alex / Founder" required className="h-11 bg-background/50 text-xs sm:text-sm focus-visible:ring-primary/30 rounded-xl" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
-                <Input id="email" name="email" type="email" placeholder="shree@company.com" className="h-12 bg-background/50 focus-visible:ring-primary/30" />
+              <div className="space-y-1.5">
+                <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Email Address</Label>
+                <Input id="email" name="email" type="email" placeholder="alex@company.com" required className="h-11 bg-background/50 text-xs sm:text-sm focus-visible:ring-primary/30 rounded-xl" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="message" className="text-sm font-medium">Your Message</Label>
-                <Textarea id="message" name="message" placeholder="Tell me about your project, team, or internship role..." className="min-h-[150px] resize-none bg-background/50 focus-visible:ring-primary/30" />
+              <div className="space-y-1.5">
+                <Label htmlFor="message" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Scope / Inquiry</Label>
+                <Textarea id="message" name="message" placeholder="Tell me about your product vision, engineering role, or technical challenge..." required className="min-h-[140px] resize-none bg-background/50 text-xs sm:text-sm focus-visible:ring-primary/30 rounded-xl" />
               </div>
               <SubmitButton />
             </form>
