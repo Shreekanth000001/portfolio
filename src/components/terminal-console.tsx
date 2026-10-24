@@ -93,9 +93,9 @@ export function TerminalConsole() {
         output = (
           <div className="space-y-1 text-xs sm:text-sm text-muted-foreground font-mono">
             <p><span className="text-amber-400 font-semibold">Frontend:</span> Next.js (App Router), React, TypeScript, Tailwind CSS</p>
-            <p><span className="text-blue-400 font-semibold">Backend:</span> FastAPI, Python, Node.js, Redis, WebSockets</p>
-            <p><span className="text-emerald-400 font-semibold">Databases:</span> PostgreSQL, pgvector Embeddings, OpenAI RAG</p>
-            <p><span className="text-purple-400 font-semibold">DevOps:</span> Azure Linux VMs, Nginx, GitHub Actions, Stripe</p>
+            <p><span className="text-blue-400 font-semibold">Backend:</span> FastAPI, Laravel (PHP), Python, Node.js, WebSockets</p>
+            <p><span className="text-emerald-400 font-semibold">Databases & AI:</span> PostgreSQL, pgvector, LangGraph / CrewAI, OpenAI RAG</p>
+            <p><span className="text-purple-400 font-semibold">DevOps:</span> Docker, Linux Administration, AWS & Azure, Nginx, CI/CD</p>
           </div>
         );
         break;
@@ -103,6 +103,10 @@ export function TerminalConsole() {
       case "projects":
         output = (
           <div className="space-y-2 text-xs sm:text-sm font-mono">
+            <div>
+              <a href="https://plant-pulse-rho.vercel.app" target="_blank" rel="noreferrer" className="text-primary underline font-bold">PlantPulse</a>
+              <p className="text-muted-foreground text-xs">Industrial IoT Telemetry + MQTT Broker + WebSockets</p>
+            </div>
             <div>
               <a href="https://planner.shreek.me" target="_blank" rel="noreferrer" className="text-primary underline font-bold">Academic Planner (AI SaaS)</a>
               <p className="text-muted-foreground text-xs">PDF Syllabus Ingestion + pgvector RAG + Stripe</p>

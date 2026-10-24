@@ -27,7 +27,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              Available for Web Development Internships
+              Available for Software & Cloud Engineering Internships
             </div>
 
             {/* Title & Bio */}
@@ -75,14 +75,16 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
               </p>
               <div className="flex flex-wrap gap-2 text-xs font-mono">
                 {[
-                  "Next.js (App Router)",
+                  "Next.js",
                   "TypeScript",
                   "FastAPI (Python)",
-                  "Node.js",
-                  "PostgreSQL / pgvector",
-                  "Redis",
-                  "WebSockets",
-                  "Azure Linux VMs"
+                  "Laravel (PHP)",
+                  "LangGraph / CrewAI",
+                  "PostgreSQL",
+                  "Docker",
+                  "Linux Administration",
+                  "WebSockets / MQTT",
+                  "AWS / Azure"
                 ].map((pill) => (
                   <span key={pill} className="px-2.5 py-1 rounded-md bg-secondary/80 text-foreground border border-border/60">
                     {pill}

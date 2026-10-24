@@ -69,7 +69,7 @@ export function About() {
                 </div>
                 <div>
                   <span className="text-muted-foreground block">Server Hosting:</span>
-                  <span className="font-semibold text-foreground">Azure Linux VMs & Nginx</span>
+                  <span className="font-semibold text-foreground">Linux Administration (Ubuntu, Nginx, Docker)</span>
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@ export function About() {
                   <Server size={18} />
                 </div>
                 <h5 className="font-bold text-sm">Backend & Queues</h5>
-                <p className="text-xs text-muted-foreground leading-relaxed">FastAPI, Python, Node.js, Redis, ARQ Worker Queues, WebSockets</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">FastAPI, Laravel (PHP), Python, Node.js, Redis, WebSockets</p>
               </div>
 
               <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
@@ -113,7 +113,7 @@ export function About() {
                   <Database size={18} />
                 </div>
                 <h5 className="font-bold text-sm">Databases & AI</h5>
-                <p className="text-xs text-muted-foreground leading-relaxed">PostgreSQL, pgvector Embeddings, SQLAlchemy, Genkit / OpenAI RAG</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">PostgreSQL, pgvector, LangGraph / CrewAI, OpenAI RAG, SQLAlchemy</p>
               </div>
 
               <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
@@ -121,7 +121,7 @@ export function About() {
                   <CloudCog size={18} />
                 </div>
                 <h5 className="font-bold text-sm">Cloud & DevOps</h5>
-                <p className="text-xs text-muted-foreground leading-relaxed">Azure (Linux VMs), Nginx, GitHub Actions CI/CD, Stripe Webhooks</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">Docker, Linux Administration (Systemd, Nginx), AWS & Azure, CI/CD</p>
               </div>
 
             </div>

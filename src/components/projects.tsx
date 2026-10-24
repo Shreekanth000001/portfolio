@@ -15,6 +15,41 @@ const projects: (ProjectArchitecture & {
   tags: string[];
 })[] = [
   {
+    title: "PlantPulse",
+    category: "Industrial IoT Platform",
+    description: "An end-to-end industrial telemetry platform that streams high-frequency IoT sensor data from factory edge machines into an interactive manufacturing operations dashboard. Features real-time state machines, QC anomaly detection, serial unit traceability, and multi-tenant plant isolation.",
+    image: "/imgs/plantpulse.png",
+    imageHint: "industrial IoT manufacturing operations dashboard",
+    tags: ["Next.js", "FastAPI", "MQTT / Mosquitto", "WebSockets", "PostgreSQL", "Docker"],
+    link: "https://plant-pulse-rho.vercel.app",
+    docsLink: "https://github.com/Shreekanth000001/Plant-Pulse",
+    blueprint: {
+      nodes: [
+        { label: "Edge Simulator", sub: "Multi-signal MQTT telemetry", icon: "🏭" },
+        { label: "Mosquitto Broker", sub: "Topic ACLs & PBKDF2 auth", icon: "📡" },
+        { label: "FastAPI Engine", sub: "Asyncio MQTT & WebSocket relay", icon: "⚡" },
+        { label: "Neon Postgres", sub: "Partitioned time-series tables", icon: "🗄️" }
+      ],
+      techDetails: [
+        { key: "Frontend", value: "Next.js 16 (App Router) + React 19" },
+        { key: "Backend", value: "FastAPI (Python 3.12) + asyncio" },
+        { key: "IoT Broker", value: "Eclipse Mosquitto (MQTT)" },
+        { key: "Database", value: "PostgreSQL (Partitioned Time-Series)" },
+        { key: "Telemetry Latency", value: "Sub-second real-time streaming" }
+      ],
+      codeSnippet: `// High-Frequency MQTT Ingestion & Range-Partitioned Time-Series Store
+async def handle_telemetry_message(message: MQTTMessage):
+    payload = json.loads(message.payload)
+    ensure_partition_for_timestamp(cursor, payload["recorded_at"])
+    cursor.execute(
+        """INSERT INTO telemetry_values (plant_id, machine_code, signal_code, value, recorded_at)
+           VALUES (%s, %s, %s, %s, %s)""",
+        (payload["plant_id"], payload["machine"], payload["signal"], payload["val"], payload["ts"])
+    )
+    await ws_manager.broadcast_plant(payload["plant_id"], payload)`
+    }
+  },
+  {
     title: "Academic Planner (AI SaaS)",
     category: "AI SaaS Platform",
     description: "An AI-powered SaaS platform that ingests PDF syllabi, generates vector embeddings, and uses a conversational RAG pipeline to generate structured study schedules. Monetized via Stripe webhooks.",
