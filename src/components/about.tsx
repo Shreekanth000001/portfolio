@@ -69,7 +69,7 @@ export function About() {
                 </div>
                 <div>
                   <span className="text-muted-foreground block">Server Hosting:</span>
-                  <span className="font-semibold text-foreground">Linux Administration (Ubuntu, Nginx, Docker)</span>
+                  <span className="font-semibold text-foreground">Azure Linux VMs (Ubuntu, Nginx, Docker)</span>
                 </div>
               </div>
             </div>
@@ -97,15 +97,15 @@ export function About() {
                   <Terminal size={18} />
                 </div>
                 <h5 className="font-bold text-sm">Frontend Engine</h5>
-                <p className="text-xs text-muted-foreground leading-relaxed">Next.js (App Router), React Server Components, TypeScript, Tailwind CSS</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">Next.js 16 (App Router), Vue 3, React, TypeScript, Tailwind CSS</p>
               </div>
 
               <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
                 <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 mb-2">
                   <Server size={18} />
                 </div>
-                <h5 className="font-bold text-sm">Backend & Queues</h5>
-                <p className="text-xs text-muted-foreground leading-relaxed">FastAPI, Laravel (PHP), Python, Node.js, Redis, WebSockets</p>
+                <h5 className="font-bold text-sm">Backend & Protocols</h5>
+                <p className="text-xs text-muted-foreground leading-relaxed">FastAPI (Python), Laravel (PHP), WebSockets, MQTT, Pusher, Redis / ARQ</p>
               </div>
 
               <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
@@ -113,7 +113,7 @@ export function About() {
                   <Database size={18} />
                 </div>
                 <h5 className="font-bold text-sm">Databases & AI</h5>
-                <p className="text-xs text-muted-foreground leading-relaxed">PostgreSQL, pgvector, LangGraph / CrewAI, OpenAI RAG, SQLAlchemy</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">PostgreSQL (Partitioned), pgvector, CrewAI Multi-Agent, OpenAI RAG</p>
               </div>
 
               <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-2">
@@ -121,7 +121,7 @@ export function About() {
                   <CloudCog size={18} />
                 </div>
                 <h5 className="font-bold text-sm">Cloud & DevOps</h5>
-                <p className="text-xs text-muted-foreground leading-relaxed">Docker, Linux Administration (Systemd, Nginx), AWS & Azure, CI/CD</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">Docker, Azure Linux VMs, Nginx, Stripe & Clerk Webhooks, GitHub Actions CI</p>
               </div>
 
             </div>

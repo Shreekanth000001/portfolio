@@ -23,9 +23,10 @@ interface GenerationOutput {
 }
 
 const presetPrompts = [
-  { label: "RAG Syllabus SaaS", text: "Built Academic Planner AI SaaS. Uses PDF parsing, pgvector embeddings, OpenAI RAG pipelines, and Stripe monetization." },
-  { label: "Agri Marketplace", text: "Engineered Agri-Connect. Real-time bidding marketplace with PostgreSQL relational data models and geospatial GIS mapping for farmers." },
-  { label: "WebSocket Gaming App", text: "Developed Nexus Games social platform. Engineered WebSocket infrastructure, Redis instant messaging, and community matchmaking." }
+  { label: "PlantPulse IoT", text: "Built PlantPulse multi-plant telemetry pipeline with MQTT broker, FastAPI batched ingest, daily-partitioned PostgreSQL (500 pts downsample in ~96ms), and Docker." },
+  { label: "Academic Planner", text: "Built Academic Planner AI SaaS with Next.js on Vercel, stateless FastAPI on Azure Linux VM via GitHub Actions, Redis/ARQ queue, and Stripe/Clerk credit ledger." },
+  { label: "Agri-Connect", text: "Architected Agri-Connect marketplace with Next.js 16, FastAPI WebSocket live-negotiation engine, and CrewAI multi-agent crop diagnostics over SSE." },
+  { label: "Nexus Games", text: "Built Nexus Games real-time social platform with Laravel, Vue 3, Pusher and Laravel Echo, rendering rich IGDB game data." }
 ];
 
 export function AIGenerator() {

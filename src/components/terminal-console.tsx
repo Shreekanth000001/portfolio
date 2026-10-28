@@ -92,10 +92,10 @@ export function TerminalConsole() {
       case "stack":
         output = (
           <div className="space-y-1 text-xs sm:text-sm text-muted-foreground font-mono">
-            <p><span className="text-amber-400 font-semibold">Frontend:</span> Next.js (App Router), React, TypeScript, Tailwind CSS</p>
-            <p><span className="text-blue-400 font-semibold">Backend:</span> FastAPI, Laravel (PHP), Python, Node.js, WebSockets</p>
-            <p><span className="text-emerald-400 font-semibold">Databases & AI:</span> PostgreSQL, pgvector, LangGraph / CrewAI, OpenAI RAG</p>
-            <p><span className="text-purple-400 font-semibold">DevOps:</span> Docker, Linux Administration, AWS & Azure, Nginx, CI/CD</p>
+            <p><span className="text-amber-400 font-semibold">Frontend:</span> Next.js (App Router), Vue 3, TypeScript, Tailwind CSS</p>
+            <p><span className="text-blue-400 font-semibold">Backend:</span> FastAPI (Python), Laravel (PHP), WebSockets, MQTT, Pusher</p>
+            <p><span className="text-emerald-400 font-semibold">Databases & AI:</span> PostgreSQL (Partitioned), pgvector, Redis, CrewAI</p>
+            <p><span className="text-purple-400 font-semibold">DevOps & Cloud:</span> Docker, Linux Administration, Azure, Stripe, GitHub Actions CI</p>
           </div>
         );
         break;
@@ -104,20 +104,20 @@ export function TerminalConsole() {
         output = (
           <div className="space-y-2 text-xs sm:text-sm font-mono">
             <div>
-              <a href="https://plant-pulse-rho.vercel.app" target="_blank" rel="noreferrer" className="text-primary underline font-bold">PlantPulse</a>
-              <p className="text-muted-foreground text-xs">Industrial IoT Telemetry + MQTT Broker + WebSockets</p>
+              <a href="https://plant-pulse-rho.vercel.app" target="_blank" rel="noreferrer" className="text-primary underline font-bold">PlantPulse (Industrial IoT Platform)</a>
+              <p className="text-muted-foreground text-xs">FastAPI, PostgreSQL, MQTT, Next.js, Docker (195 Backend + 63 Frontend Tests)</p>
             </div>
             <div>
               <a href="https://planner.shreek.me" target="_blank" rel="noreferrer" className="text-primary underline font-bold">Academic Planner (AI SaaS)</a>
-              <p className="text-muted-foreground text-xs">PDF Syllabus Ingestion + pgvector RAG + Stripe</p>
+              <p className="text-muted-foreground text-xs">Next.js, FastAPI, Redis/ARQ, Stripe, Azure Linux VM, pgvector RAG</p>
             </div>
             <div>
-              <a href="https://agriconnect.shreek.me" target="_blank" rel="noreferrer" className="text-primary underline font-bold">Agri-Connect</a>
-              <p className="text-muted-foreground text-xs">Real-Time Bidding Marketplace + PostGIS Search</p>
+              <a href="https://agriconnect.shreek.me" target="_blank" rel="noreferrer" className="text-primary underline font-bold">Agri-Connect (AgriTech Marketplace)</a>
+              <p className="text-muted-foreground text-xs">Next.js 16, FastAPI, WebSockets live negotiation, CrewAI SSE streaming</p>
             </div>
             <div>
-              <a href="https://nexusgames.shreek.me/" target="_blank" rel="noreferrer" className="text-primary underline font-bold">Nexus Games</a>
-              <p className="text-muted-foreground text-xs">WebSocket Gaming Platform + Redis Relay</p>
+              <a href="https://nexusgames.shreek.me/" target="_blank" rel="noreferrer" className="text-primary underline font-bold">Nexus Games (Real-Time Social Platform)</a>
+              <p className="text-muted-foreground text-xs">Laravel, Vue 3, Pusher, Laravel Echo, IGDB API</p>
             </div>
           </div>
         );

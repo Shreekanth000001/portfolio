@@ -16,139 +16,148 @@ const projects: (ProjectArchitecture & {
 })[] = [
   {
     title: "PlantPulse",
-    category: "Industrial IoT Platform",
-    description: "An end-to-end industrial telemetry platform that streams high-frequency IoT sensor data from factory edge machines into an interactive manufacturing operations dashboard. Features real-time state machines, QC anomaly detection, serial unit traceability, and multi-tenant plant isolation.",
+    category: "Industrial IoT Monitoring Platform",
+    description: "Built a multi-plant telemetry pipeline: MQTT broker, FastAPI batched idempotent ingest, and a daily-partitioned PostgreSQL table, with a history API that downsamples to 500 points (about 96 ms over 1M rows). Secured with per-plant broker ACLs, hashed viewer tokens, rate-limited admin routes, and an admin UI; covered by 195 backend and 63 frontend tests with GitHub Actions CI.",
     image: "/imgs/plantpulse.png",
     imageHint: "industrial IoT manufacturing operations dashboard",
-    tags: ["Next.js", "FastAPI", "MQTT / Mosquitto", "WebSockets", "PostgreSQL", "Docker"],
+    tags: ["FastAPI", "PostgreSQL", "MQTT", "Next.js", "Docker"],
     link: "https://plant-pulse-rho.vercel.app",
     docsLink: "https://github.com/Shreekanth000001/Plant-Pulse",
     blueprint: {
       nodes: [
-        { label: "Edge Simulator", sub: "Multi-signal MQTT telemetry", icon: "🏭" },
-        { label: "Mosquitto Broker", sub: "Topic ACLs & PBKDF2 auth", icon: "📡" },
-        { label: "FastAPI Engine", sub: "Asyncio MQTT & WebSocket relay", icon: "⚡" },
-        { label: "Neon Postgres", sub: "Partitioned time-series tables", icon: "🗄️" }
+        { label: "Edge Fleet", sub: "Multi-plant MQTT telemetry", icon: "🏭" },
+        { label: "Mosquitto Broker", sub: "Per-plant ACLs & PBKDF2 auth", icon: "📡" },
+        { label: "FastAPI Ingest", sub: "Batched idempotent ingestion", icon: "⚡" },
+        { label: "Partitioned Postgres", sub: "Daily tables & 96ms downsampling", icon: "🗄️" }
       ],
       techDetails: [
-        { key: "Frontend", value: "Next.js 16 (App Router) + React 19" },
-        { key: "Backend", value: "FastAPI (Python 3.12) + asyncio" },
+        { key: "Backend", value: "FastAPI (Python) + Uvicorn" },
+        { key: "Database", value: "PostgreSQL (Daily Partitioning)" },
         { key: "IoT Broker", value: "Eclipse Mosquitto (MQTT)" },
-        { key: "Database", value: "PostgreSQL (Partitioned Time-Series)" },
-        { key: "Telemetry Latency", value: "Sub-second real-time streaming" }
+        { key: "Frontend", value: "Next.js (App Router)" },
+        { key: "DevOps", value: "Docker Supervised Container Stack" },
+        { key: "Performance", value: "500 pts downsample (~96ms over 1M rows)" },
+        { key: "Test Coverage", value: "195 Backend + 63 Frontend Tests (CI)" }
       ],
-      codeSnippet: `// High-Frequency MQTT Ingestion & Range-Partitioned Time-Series Store
-async def handle_telemetry_message(message: MQTTMessage):
-    payload = json.loads(message.payload)
-    ensure_partition_for_timestamp(cursor, payload["recorded_at"])
-    cursor.execute(
-        """INSERT INTO telemetry_values (plant_id, machine_code, signal_code, value, recorded_at)
-           VALUES (%s, %s, %s, %s, %s)""",
-        (payload["plant_id"], payload["machine"], payload["signal"], payload["val"], payload["ts"])
-    )
-    await ws_manager.broadcast_plant(payload["plant_id"], payload)`
+      codeSnippet: `// FastAPI Batched Idempotent Telemetry Ingest & Daily Partitioning
+@app.post("/api/v1/telemetry/batch")
+async def ingest_batch(batch: TelemetryBatch, db: Connection = Depends(get_db)):
+    ensure_daily_partition(db, batch.recorded_at)
+    query = """
+        INSERT INTO telemetry_values (plant_id, machine_code, signal_code, value, recorded_at)
+        VALUES (%s, %s, %s, %s, %s)
+        ON CONFLICT (plant_id, machine_code, signal_code, recorded_at) DO NOTHING
+    """
+    db.executemany(query, [item.to_tuple() for item in batch.readings])
+    return {"status": "ok", "ingested": len(batch.readings)}`
     }
   },
   {
-    title: "Academic Planner (AI SaaS)",
-    category: "AI SaaS Platform",
-    description: "An AI-powered SaaS platform that ingests PDF syllabi, generates vector embeddings, and uses a conversational RAG pipeline to generate structured study schedules. Monetized via Stripe webhooks.",
+    title: "Academic Planner",
+    category: "AI-Powered SaaS",
+    description: "Built an AI SaaS (Next.js on Vercel) with a stateless FastAPI/PostgreSQL API on an Azure Linux VM, deployed via GitHub Actions; a Redis/ARQ queue and pgvector power non-blocking PDF chat (RAG). Integrated Stripe and Clerk webhooks into a billing ledger that deducts credits as users consume AI compute.",
     image: "/imgs/acaPlan.png",
     imageHint: "AI SaaS Dashboard Interface",
-    tags: ["Next.js", "OpenAI RAG", "pgvector", "Stripe Webhooks", "TypeScript"],
+    tags: ["Next.js", "FastAPI", "Redis", "Stripe", "Azure"],
     link: "https://planner.shreek.me",
     docsLink: "https://github.com/Shreekanth000001/Academic-Planner",
     blueprint: {
       nodes: [
-        { label: "PDF Parser", sub: "Multipart syllabus ingestion", icon: "📄" },
-        { label: "pgvector Store", sub: "1536d vector embeddings", icon: "⚡" },
-        { label: "OpenAI RAG", sub: "Contextual schedule generation", icon: "🤖" },
-        { label: "Stripe FinOps", sub: "Webhook tier enforcement", icon: "💳" }
+        { label: "Next.js on Vercel", sub: "Frontend UI & Clerk Auth", icon: "💻" },
+        { label: "Azure VM API", sub: "Stateless FastAPI Backend", icon: "☁️" },
+        { label: "Redis / ARQ", sub: "Non-blocking background queue", icon: "⚡" },
+        { label: "PostgreSQL pgvector", sub: "Vector search & billing ledger", icon: "🗄️" }
       ],
       techDetails: [
-        { key: "Frontend", value: "Next.js App Router + RSC" },
-        { key: "Vector Database", value: "PostgreSQL + pgvector" },
-        { key: "AI Engine", value: "OpenAI Embeddings & RAG" },
-        { key: "Billing", value: "Stripe Billing & Webhooks" },
-        { key: "RAG Latency", value: "< 420ms Retrieval" }
+        { key: "Frontend", value: "Next.js on Vercel" },
+        { key: "API Server", value: "Stateless FastAPI on Azure Linux VM" },
+        { key: "Task Queue", value: "Redis + ARQ Worker" },
+        { key: "Vector Storage", value: "PostgreSQL + pgvector" },
+        { key: "Billing Ledger", value: "Stripe & Clerk Webhooks" },
+        { key: "Deployment", value: "GitHub Actions CI/CD to Azure" }
       ],
-      codeSnippet: `// pgvector RAG Similarity Search Query
-const queryEmbeddings = await openai.embeddings.create({ input: chunkText });
-const { rows } = await pg.query(
-  \`SELECT content, 1 - (embedding <=> $1) AS similarity 
-   FROM syllabus_chunks 
-   WHERE user_id = $2 
-   ORDER BY embedding <=> $1 LIMIT 5\`,
-  [JSON.stringify(queryEmbeddings.data[0].embedding), userId]
-);`
+      codeSnippet: `// Non-blocking ARQ Background Worker for PDF RAG & Credit Ledger
+async def process_pdf_rag(ctx, user_id: str, document_id: str, chunk_text: str):
+    embedding = await generate_embeddings(chunk_text)
+    async with get_db_pool() as conn:
+        await conn.execute(
+            "INSERT INTO doc_embeddings (user_id, doc_id, vector) VALUES ($1, $2, $3)",
+            user_id, document_id, embedding
+        )
+        await deduct_user_credits(conn, user_id, cost=1)`
     }
   },
   {
     title: "Agri-Connect",
-    category: "Real-Time Bidding Marketplace",
-    description: "A comprehensive real-time bidding marketplace bridging the gap in the agricultural sector. Features complex relational data models and geospatial mapping for farmers and buyers.",
+    category: "AgriTech Bidding Marketplace",
+    description: "Architected a decoupled marketplace (Next.js 16 / FastAPI) with a WebSocket live-negotiation engine and a CrewAI multi-agent advisory crew that streams crop diagnostics over Server-Sent Events (SSE).",
     image: "/imgs/Agri.png", 
     imageHint: "agriculture technology platform interface",
-    tags: ["React", "PostgreSQL", "WebSockets", "Geospatial GIS", "Node.js"],
+    tags: ["Next.js", "FastAPI", "WebSockets", "CrewAI"],
     link: "https://agriconnect.shreek.me", 
     docsLink: "https://github.com/Shreekanth000001/agri-connect",
     blueprint: {
       nodes: [
-        { label: "Bidding Client", sub: "React real-time interface", icon: "📱" },
-        { label: "Nginx Gateway", sub: "SSL termination & proxy", icon: "🛡️" },
-        { label: "WebSocket Core", sub: "Async bid price sync", icon: "📡" },
-        { label: "PostGIS DB", sub: "Geospatial distance mapping", icon: "🌐" }
+        { label: "Next.js 16 Client", sub: "Bidding & live SSE interface", icon: "📱" },
+        { label: "FastAPI Core", sub: "Async marketplace backend", icon: "⚡" },
+        { label: "WebSocket Gateway", sub: "Live price negotiation engine", icon: "📡" },
+        { label: "CrewAI Multi-Agent", sub: "Diagnostic crew over SSE", icon: "🤖" }
       ],
       techDetails: [
-        { key: "Frontend", value: "React + Tailwind CSS" },
-        { key: "Database", value: "PostgreSQL + PostGIS" },
-        { key: "Real-Time", value: "WebSockets (ws protocol)" },
-        { key: "Architecture", value: "Decoupled Event-Driven" },
-        { key: "Bid Sync Speed", value: "< 18ms WebSockets" }
+        { key: "Frontend", value: "Next.js 16" },
+        { key: "Backend", value: "FastAPI (Python)" },
+        { key: "Negotiation Engine", value: "Bi-directional WebSockets" },
+        { key: "AI Architecture", value: "CrewAI Multi-Agent Advisory" },
+        { key: "Streaming Protocol", value: "Server-Sent Events (SSE)" }
       ],
-      codeSnippet: `// PostGIS Geospatial Distance Query for Crop Bids
-const nearbyBids = await db.query(
-  \`SELECT id, crop_name, current_price,
-          ST_Distance(location, ST_MakePoint($1, $2)::geography) / 1000 AS distance_km
-   FROM crop_bids 
-   WHERE status = 'ACTIVE' 
-     AND ST_DWithin(location, ST_MakePoint($1, $2)::geography, $3)
-   ORDER BY distance_km ASC\`,
-  [longitude, latitude, maxRadiusMeters]
-);`
+      codeSnippet: `// CrewAI Multi-Agent Diagnostic Crew streaming insights over SSE
+@app.get("/api/v1/diagnostics/stream/{crop_id}")
+async def stream_crop_advisory(crop_id: str):
+    crew = Crew(
+        agents=[soil_analyst, agronomy_specialist, market_pricing_agent],
+        tasks=[analyze_crop_health, generate_pricing_recommendation]
+    )
+    async def event_generator():
+        async for step in crew.kickoff_async(inputs={"crop_id": crop_id}):
+            yield f"data: {json.dumps(step)}\\n\\n"
+    return StreamingResponse(event_generator(), media_type="text/event-stream")`
     }
   },
   {
     title: "Nexus Games",
     category: "Real-Time Social Platform",
-    description: "A real-time social platform and community for gamers. Engineered with WebSocket infrastructure for instant networking, messaging, and game discovery.",
+    description: "Built real-time chat with Pusher and Laravel Echo, plus a Vue 3 frontend rendering IGDB game data.",
     image: "/imgs/nexus.png",
     imageHint: "web application interface",
-    tags: ["Next.js", "WebSockets", "Redis", "Real-Time Messaging", "Tailwind"],
+    tags: ["Laravel", "Vue 3", "Pusher"],
     link: "https://nexusgames.shreek.me/",
     docsLink: "https://github.com/Shreekanth000001/nexusgames",
     blueprint: {
       nodes: [
-        { label: "Next.js Web Client", sub: "RSC & Tailwind UI", icon: "🎮" },
-        { label: "WS Relay Server", sub: "Bi-directional socket gateway", icon: "⚡" },
-        { label: "Redis Pub/Sub", sub: "In-memory state distribution", icon: "🧠" },
-        { label: "Lobby Engine", sub: "Matchmaking & discovery", icon: "🏆" }
+        { label: "Vue 3 Frontend", sub: "IGDB game data rendering", icon: "🎮" },
+        { label: "Laravel Echo", sub: "Client-side event listener", icon: "⚡" },
+        { label: "Pusher Gateway", sub: "Real-time websocket broadcast", icon: "📡" },
+        { label: "Laravel Backend", sub: "Message dispatch & auth", icon: "🛡️" }
       ],
       techDetails: [
-        { key: "Frontend", value: "Next.js App Router" },
-        { key: "In-Memory Store", value: "Redis Pub/Sub Cache" },
-        { key: "Networking", value: "Bi-Directional WebSockets" },
-        { key: "Concurrency", value: "5,000+ Concurrent Sockets" },
-        { key: "Message Latency", value: "< 12ms Relay" }
+        { key: "Backend", value: "Laravel (PHP)" },
+        { key: "Frontend", value: "Vue 3" },
+        { key: "Real-Time", value: "Pusher + Laravel Echo" },
+        { key: "External Data", value: "IGDB API Integration" },
+        { key: "Core Features", value: "Real-time chat & game directory" }
       ],
-      codeSnippet: `// Redis Pub/Sub WebSocket Event Dispatcher
-const redisSub = new Redis(process.env.REDIS_URL);
-redisSub.subscribe(\`game-room:\${roomId}\`, (err) => {
-  redisSub.on("message", (channel, message) => {
-    const payload = JSON.parse(message);
-    activeSockets.forEach(ws => ws.send(JSON.stringify(payload)));
-  });
-});`
+      codeSnippet: `// Laravel Event Broadcast for Real-Time Chat via Pusher
+class MessageSent implements ShouldBroadcast
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public function __construct(public User $user, public Message $message, public string $roomId) {}
+
+    public function broadcastOn(): Channel
+    {
+        return new PrivateChannel("game-room.{$this->roomId}");
+    }
+}`
     }
   }
 ];

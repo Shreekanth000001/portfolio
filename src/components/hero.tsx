@@ -76,15 +76,15 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
               <div className="flex flex-wrap gap-2 text-xs font-mono">
                 {[
                   "Next.js",
-                  "TypeScript",
                   "FastAPI (Python)",
                   "Laravel (PHP)",
-                  "LangGraph / CrewAI",
+                  "Vue 3",
+                  "TypeScript",
                   "PostgreSQL",
                   "Docker",
-                  "Linux Administration",
+                  "CrewAI",
                   "WebSockets / MQTT",
-                  "AWS / Azure"
+                  "Linux / Azure"
                 ].map((pill) => (
                   <span key={pill} className="px-2.5 py-1 rounded-md bg-secondary/80 text-foreground border border-border/60">
                     {pill}
